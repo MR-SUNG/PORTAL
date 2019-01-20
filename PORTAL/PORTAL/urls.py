@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', 'checkforwarding.views.index'),
+    url(r'^analysis/', include('analysis.urls', namespace='analysis')),
+    url(r'^assetmanagement/', include('assetmanagement.urls', namespace='assetmanagement')),
+    url(r'^checkforwarding/', include('checkforwarding.urls', namespace='checkforwarding')),
+    url(r'^followup/', include('followup.urls', namespace='followup')),
 ]
