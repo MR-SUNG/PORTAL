@@ -16,10 +16,10 @@ def index(request):
             content = form.save(commit = False)
             content.author = request.user
             content.save()
-            return redirect('checkforwarding:index')
+            return redirect('check:index')
     else:
         form = ContentsForm()
 
-    return render(request, 'checkforwarding/check_list.html', {
+    return render(request, 'check/check_list.html', {
             'post_list': post_list, 'form':form
     })

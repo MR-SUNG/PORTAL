@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'analysis',
     'assetmanagement',
-    'checkforwarding',
+    'check',
     'followup',
 ]
 

@@ -5,8 +5,8 @@ from .models import Post, Comment, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-	list_display = ['content', 'create_at', 'update_at']
-	list_display_links = ['content']
+	list_display = ['auto_increment_id', 'is_status', 'kind', 'content', 'create_at', 'update_at']
+	list_display_links = ['auto_increment_id']
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^analysis/', include('analysis.urls', namespace='analysis')),
     url(r'^assetmanagement/', include('assetmanagement.urls', namespace='assetmanagement')),
-    url(r'^checkforwarding/', include('checkforwarding.urls', namespace='checkforwarding')),
+    url(r'^check/', include('check.urls', namespace='check')),
     url(r'^followup/', include('followup.urls', namespace='followup')),
 ]
