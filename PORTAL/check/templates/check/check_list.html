@@ -125,26 +125,59 @@
                             {%csrf_token%}
                             <div class="card">
                               <div class="card-body">
-                                    <p class="card-text">{{form.as_p}}</p>
-                                  <button type="submit" class="btn btn-primary">Save</button>
+                                  <div>
+                                    <label for="kind">이슈분류 : </label>
+                                    {{form.kind}}
+                                  </div>  
+                                    <label for="content">내용입력 : </label>
+                                    {{form.content}}
+                                  <button type="submit" class="btn btn-primary">등록</button>
                               </div>
                             </div>
                         </form>
                       </div>
                   
                       {% for post in post_list %}
-                      <span><br></span>
-                      <div class="card">
-                        <div class="card-header"><a href="#" class="btn btn-primary">{{ post.is_status}}</a> | <a href="#" class="btn btn-success">{{ post.kind}}</a> <strong>남윤성</strong> <small>{{ post.create_at }}</small></div>
-                        <div class="card-body">
-                          <p class="card-text">{{ post.content|linebreaksbr }}</p>
-                          <hr>
-                          <a href="#" class="btn btn-primary">I Know!</a>
-                          <hr>
-                          <P>안녕하세요</P>
-                          
-                        </div>
-                      </div>                      
+                            <span><br></span>
+                            <div class="card">
+                              <div class="card-header">
+                                  <span class="btn btn-primary btn-sm">{{ post.is_status}}</span>
+                                  <span>|</span>
+                                  <span class="btn btn-success btn-sm">{{ post.kind}}</span>
+                                  <strong>사용자</strong>
+                                  <small>{{ post.create_at }}</small>
+                                  <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                              </div>
+                              <div class="card-body">
+                                <p class="card-text">{{ post.content|linebreaksbr }}</p>
+                                <hr>
+                                <form method="POST">
+                                    {%csrf_token%}
+                                    <div>
+                                        {{ post.auto_increment_id}}
+                                        <label for="message">댓글쓰기 : </label>
+                                        {{ form2.message }}
+                                    <button type="submit" class="btn btn-primary btn-sm">등록</button>
+                                    </div>
+                                </form>
+                                    {% for comment in post.comment_set.all %}
+                                    <div>
+                                      <p>
+                                      <ul>
+                                        <li>
+                                            {{ comment.message}}
+                                            <small>
+                                              사용자
+                                              {{ comment.create_at}}
+                                            </small>
+                                        </li>
+                                      </ul>
+                                      </p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>    
+                                            
                       {% endfor %}
                   </main>
                 </div>

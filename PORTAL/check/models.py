@@ -12,26 +12,35 @@ KIND_CHOICES = (
 )
 
 IS_STATUS = (
-    ('완료', '완료'),
     ('진행', '진행'),
-    ('보류', '보류'),
+    ('완료', '완료'),
 )
 
 class Post(models.Model):
     auto_increment_id = models.AutoField(primary_key=True)
-    is_status = models.CharField(max_length=7, choices=IS_STATUS, default='ing')
-    kind = models.CharField(max_length=10, choices=KIND_CHOICES, default='first')
-    content = models.TextField()
+    is_status = models.CharField(max_length=7, choices=IS_STATUS, default='진행')
+    kind = models.CharField(max_length=10, choices=KIND_CHOICES, default='이슈공유')
+    content = models.TextField(max_length=1000)
     tags = models.ManyToManyField('Tag')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-auto_increment_id']
+
 
 class Comment(models.Model):
-    auto_increment_id = models.ForeignKey(Post, on_delete=models.PROTECT)
+    auto_increment_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     message = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-create_at']
+
+    def get_auto_increment_id(self):
+        return reverse('check:index', args=[self.post.pk, self.pk])
 
 
 class Tag(models.Model):

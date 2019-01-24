@@ -6,7 +6,7 @@ from .models import Post, Comment, Tag
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
 	list_display = ['auto_increment_id', 'is_status', 'kind', 'content', 'create_at', 'update_at']
-	list_display_links = ['auto_increment_id']
+	list_display_links = ['content']
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
